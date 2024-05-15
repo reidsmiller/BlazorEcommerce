@@ -26,7 +26,7 @@
             if (product == null)
             {
                 response.Success = false;
-                response.Message = "Product not found.";
+                response.Message = "Sorry, but this product does not exist.";
             }
             else
             {
