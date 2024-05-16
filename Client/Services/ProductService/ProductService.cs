@@ -14,7 +14,7 @@ namespace BlazorEcommerce.Client.Services.ProductService
         }
 
         public List<Product> Products { get; set; } = new List<Product>();
-        public string Message { get; set; } = "Loading products..."
+        public string Message { get; set; } = "Loading products...";
 
         public event Action ProductsChanged;
 
