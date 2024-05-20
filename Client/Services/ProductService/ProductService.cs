@@ -1,6 +1,7 @@
 ﻿
 using System.Net.Http.Json;
 using System.Security.Cryptography.X509Certificates;
+using BlazorEcommerce.Shared.Models;
 
 namespace BlazorEcommerce.Client.Services.ProductService
 {
@@ -21,7 +22,7 @@ namespace BlazorEcommerce.Client.Services.ProductService
         public async Task GetProducts(string? categoryUrl = null)
         {
             var result = categoryUrl == null ?
-                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product") :
+                await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/featured") :
                 await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/category/{categoryUrl}");
             if (result != null && result.Data != null) Products = result.Data;
 

@@ -1,6 +1,6 @@
 global using BlazorEcommerce.Client.Services.ProductService;
 global using BlazorEcommerce.Client.Services.CategoryService;
-global using BlazorEcommerce.Shared;
+global using BlazorEcommerce.Shared.Models;
 global using System.Net.Http.Json;
 using BlazorEcommerce.Client;
 using Microsoft.AspNetCore.Components.Web;

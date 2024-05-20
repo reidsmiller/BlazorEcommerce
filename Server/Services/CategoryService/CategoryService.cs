@@ -1,4 +1,6 @@
 ﻿
+using BlazorEcommerce.Shared.Models;
+
 namespace BlazorEcommerce.Server.Services.CategoryService
 {
     public class CategoryService : ICategoryService

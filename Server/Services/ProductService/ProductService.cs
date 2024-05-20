@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using BlazorEcommerce.Shared.Models;
 
 namespace BlazorEcommerce.Server.Services.ProductService
 {
@@ -102,6 +103,19 @@ namespace BlazorEcommerce.Server.Services.ProductService
                                 .Where(p => p.Title.ToLower().Contains(searchText.ToLower()) || p.Description.ToLower().Contains(searchText.ToLower()))
                                 .Include(p => p.Variants)
                                 .ToListAsync();
+        }
+
+        public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
+        {
+            var results = new ServiceResponse<List<Product>>
+            {
+                Data = await _context.Products
+                    .Where(p => p.Featured)
+                    .Include(p => p.Variants)
+                    .ToListAsync()
+            };
+
+            return results;
         }
     }
 }

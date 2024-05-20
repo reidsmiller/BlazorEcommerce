@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BlazorEcommerce.Shared
+namespace BlazorEcommerce.Shared.Models
 {
     public class ProductVariant
     {
@@ -16,7 +16,7 @@ namespace BlazorEcommerce.Shared
         public ProductType ProductType { get; set; }
         public int ProductTypeId { get; set; }
 
-        [Column(TypeName="decimal(18,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
