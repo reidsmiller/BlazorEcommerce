@@ -10,6 +10,6 @@ namespace BlazorEcommerce.Shared.Models
     {
         public int ProductId { get; set; }
         public int ProductTypeId { get; set; }
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } = 1;
     }
 }
