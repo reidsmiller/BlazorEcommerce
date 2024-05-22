@@ -1,5 +1,4 @@
 ﻿using System.Reflection.Metadata.Ecma335;
-using BlazorEcommerce.Shared.Models;
 
 namespace BlazorEcommerce.Server.Services.ProductService
 {

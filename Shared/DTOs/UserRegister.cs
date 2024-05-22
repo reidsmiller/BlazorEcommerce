@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorEcommerce.Shared.Models
+namespace BlazorEcommerce.Shared.DTOs
 {
     public class UserRegister
     {
@@ -13,7 +13,7 @@ namespace BlazorEcommerce.Shared.Models
         public string Email { get; set; } = string.Empty;
         [Required, StringLength(100, MinimumLength = 6)]
         public string Password { get; set; } = string.Empty;
-        [Required, Compare("Password", ErrorMessage="Passwords do not match.")]
+        [Required, Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorEcommerce.Shared.Models
+namespace BlazorEcommerce.Shared.DTOs
 {
     public class CartItem
     {
