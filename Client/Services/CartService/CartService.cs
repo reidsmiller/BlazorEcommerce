@@ -1,5 +1,7 @@
 ﻿
+using BlazorEcommerce.Shared.DTOs;
 using Blazored.LocalStorage;
+using System.Text.Json;
 
 namespace BlazorEcommerce.Client.Services.CartService
 {
@@ -37,6 +39,7 @@ namespace BlazorEcommerce.Client.Services.CartService
                 cart = new List<CartItem>();
             }
 
+            Console.WriteLine($"Cart Items: {JsonSerializer.Serialize(cart)}");
             return cart;
         }
 
@@ -45,7 +48,8 @@ namespace BlazorEcommerce.Client.Services.CartService
             var cartItems = await _localStorage.GetItemAsync<List<CartItem>>("cart");
             var response = await _http.PostAsJsonAsync("api/cart/products", cartItems);
             var cartProducts = await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponse>>>();
-            return cartProducts.Data;
+
+            return cartProducts.Data ?? new List<CartProductResponse>();
         }
     }
 }

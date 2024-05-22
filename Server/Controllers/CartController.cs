@@ -5,11 +5,11 @@ namespace BlazorEcommerce.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartConroller : ControllerBase
+    public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
 
-        public CartConroller(ICartService cartService)
+        public CartController(ICartService cartService)
         {
             _cartService = cartService;
         }
