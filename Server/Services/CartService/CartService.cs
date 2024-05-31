@@ -80,5 +80,70 @@ namespace BlazorEcommerce.Server.Services.CartService
             return await GetCartProducts(await _context.CartItems
                 .Where(cartItem => cartItem.UserId == GetUserId()).ToListAsync());
         }
+
+        public async Task<ServiceResponse<bool>> AddToCart(CartItem cartItem)
+        {
+            cartItem.UserId = GetUserId();
+            var dbCartItem = await FindRepeatCartItem(cartItem.ProductId, cartItem.ProductTypeId);
+            if (dbCartItem == null)
+            {
+                _context.CartItems.Add(cartItem);
+            }
+            else
+            {
+                dbCartItem.Quantity += cartItem.Quantity;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Data = true };
+        }
+
+        
+
+        public async Task<ServiceResponse<bool>> UpdateQuantity(CartItem cartItem)
+        {
+            var dbCartItem = await FindRepeatCartItem(cartItem.ProductId, cartItem.ProductTypeId);
+            if (dbCartItem == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Message = "Cart item does not exist"
+                };
+            }
+
+            dbCartItem.Quantity = cartItem.Quantity;
+            await _context.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Data = true };
+        }
+
+        public async Task<ServiceResponse<bool>> RemoveItemFromCart(int productId, int productTypeId)
+        {
+            var dbCartItem = await FindRepeatCartItem(productId, productTypeId);
+            if (dbCartItem == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Data = false,
+                    Message = "Cart item does not exist"
+                };
+            }
+
+            _context.CartItems.Remove(dbCartItem);
+            await _context.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Data = true };
+        }
+
+        private async Task<CartItem?> FindRepeatCartItem(int productId, int productTypeId)
+        {
+            return await _context.CartItems
+                .FirstOrDefaultAsync(ci =>
+                ci.ProductId == productId &&
+                ci.ProductTypeId == productTypeId &&
+                ci.UserId == GetUserId());
+        }
     }
 }
