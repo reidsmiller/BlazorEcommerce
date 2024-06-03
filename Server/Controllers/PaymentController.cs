@@ -15,6 +15,14 @@ namespace BlazorEcommerce.Server.Controllers
             _paymentService = paymentService;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<bool>>> FullfillOrder()
+        {
+            var response = await _paymentService.FulfillOrder(Request);
+            if (!response.Success) return BadRequest(response);
+            return Ok(response);
+        }
+
         [HttpPost("checkout"), Authorize]
         public async Task<ActionResult<string>> CreateCheckoutSession()
         {

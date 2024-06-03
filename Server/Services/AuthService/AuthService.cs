@@ -131,5 +131,10 @@ namespace BlazorEcommerce.Server.Services.AuthService
 
             return new ServiceResponse<bool> { Data = true, Message = "Password updated successfully." };
         }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+        }
     }
 }
