@@ -8,18 +8,19 @@ namespace BlazorEcommerce.Server.Services.PaymentService
         private readonly ICartService _cartService;
         private readonly IAuthService _authService;
         private readonly IOrderService _orderService;
-
-        const string secret = "whsec_ea61930f5d829fe73a431cf47a785d15baa5414573ef4f4e74e3464db15ea027";
+        private readonly string _stripeSecret;
 
         public PaymentService(ICartService cartService,
             IAuthService authService,
-            IOrderService orderService)
+            IOrderService orderService,
+            IConfiguration configuration)
         {
-            StripeConfiguration.ApiKey = "sk_test_51PNgktEhZj392wM7wevmYrbXrjqaYdSLh7iNUzASHret7pppYJUIE2bNsFf0tbAYn1aKfjAgIkdhlQBY0k05YgrG00Q3i1fKqp";
+            StripeConfiguration.ApiKey = configuration["StripeAPIKey"];
 
             _cartService = cartService;
             _authService = authService;
             _orderService = orderService;
+            _stripeSecret = configuration["StripeSecret"];
         }
 
         public async Task<Session> CreateCheckoutSession()
@@ -44,6 +45,10 @@ namespace BlazorEcommerce.Server.Services.PaymentService
             var options = new SessionCreateOptions
             {
                 CustomerEmail = _authService.GetUserEmail(),
+                ShippingAddressCollection = new SessionShippingAddressCollectionOptions
+                {
+                    AllowedCountries = new List<string> { "US" }
+                },
                 PaymentMethodTypes = new List<string>
                 {
                     "card"
@@ -68,7 +73,7 @@ namespace BlazorEcommerce.Server.Services.PaymentService
                 var stripeEvent = EventUtility.ConstructEvent(
                     json,
                     request.Headers["Stripe-Signature"],
-                    secret);
+                    _stripeSecret);
 
                 if (stripeEvent.Type == Events.CheckoutSessionCompleted)
                 {

@@ -21,6 +21,8 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Defaultconnection"));
 });
 
+builder.Configuration.AddUserSecrets<Program>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -46,7 +48,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 builder.Services.AddHttpContextAccessor();
-
 
 var app = builder.Build();
 
