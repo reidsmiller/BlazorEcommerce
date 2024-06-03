@@ -20,7 +20,7 @@ namespace BlazorEcommerce.Server.Services.PaymentService
             _cartService = cartService;
             _authService = authService;
             _orderService = orderService;
-            _stripeSecret = configuration["StripeSecret"];
+            _stripeSecret = configuration["StripeWebhookSecret"];
         }
 
         public async Task<Session> CreateCheckoutSession()
