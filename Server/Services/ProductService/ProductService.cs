@@ -190,6 +190,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
             dbProduct.ImageUrl = product.ImageUrl;
             dbProduct.CategoryId = product.CategoryId;
             dbProduct.Visible = product.Visible;
+            dbProduct.Featured = product.Featured;
 
             foreach (var variant in product.Variants)
             {
@@ -207,6 +208,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                     dbVariant.Price = variant.Price;
                     dbVariant.OriginalPrice = variant.OriginalPrice;
                     dbVariant.Deleted = variant.Deleted;
+                    dbVariant.Visible = variant.Visible;
                 }
             }
 
